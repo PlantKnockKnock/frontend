@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import HelloWorld from '@/components/HelloWorld'
 import Chart from '@/components/Chart'
+import loginpage from '../views/test.vue'
 
 Vue.use(VueRouter)
 
@@ -26,6 +27,11 @@ const routes = [
     path: '/chart',
     name: 'Chart',
     component: Chart
+  },
+  {
+    path: '/loginpage',
+    name: 'loginpage',
+    component: loginpage
   }
 ]
 

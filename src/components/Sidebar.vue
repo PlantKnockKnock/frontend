@@ -66,11 +66,11 @@
        <span class="tooltip">Sign in</span>
      </li>
       <li>
-       <router-link to="/">
+       <router-link to="/loginpage">
          <i class='bx bx-cog' ></i>
-         <span class="links_name">Sign up(임시)</span>
+         <span class="links_name">LoginPage</span>
        </router-link>
-       <span class="tooltip">Sign up</span>
+       <span class="tooltip">Login Page</span>
      </li>
      <!--로그인과 로그아웃 임시용-->
      <li class="profile">
