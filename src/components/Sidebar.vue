@@ -38,7 +38,7 @@
        <span class="tooltip">User</span>
      </li>
      <li>
-       <router-link to="/">
+       <router-link to="/board">
          <i class='bx bx-note' ></i>
          <span class="links_name">Community</span>
        </router-link>

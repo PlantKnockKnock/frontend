@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import HelloWorld from '@/components/HelloWorld'
 import Chart from '@/components/Chart'
 import loginpage from '../views/test.vue'
+import Board from '../views/board'
 
 Vue.use(VueRouter)
 
@@ -32,6 +33,11 @@ const routes = [
     path: '/loginpage',
     name: 'loginpage',
     component: loginpage
+  },
+  {
+    path: '/board',
+    name: 'board',
+    component: Board
   }
 ]
 
