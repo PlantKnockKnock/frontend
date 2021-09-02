@@ -9,9 +9,9 @@
           class="text-no-wrap"
           >
           <template slot="items" slot-scope="props">
-            <td :class="headers[0].class">{{ id2date(props.item._id)}}</td>
+            <td :class="headers[0].class">{{ props.item.c_id}}</td>
             <td :class="headers[1].class">{{ props.item.title }}</td>
-            <td :class="headers[2].class">{{ props.item._user ? props.item._user.id : '손님' }}</td>
+            <td :class="headers[2].class">{{ props.item.c_nickname ? props.item._user.id : '손님' }}</td>
           </template>
         </v-data-table>
       </v-flex>
@@ -26,9 +26,9 @@ export default {
     return {
       posts: [],
       headers: [
-        { text: '글번호', value: '_id', sortable: true, class: 'hidden-sm-and-down' },
+        { text: '글번호', value: 'c_id', sortable: true, class: 'hidden-sm-and-down' },
         { text: '제목', value: 'title', sortable: true },
-        { text: '글쓴이', value: '_user', sortable: false }
+        { text: '글쓴이', value: 'c_nickname', sortable: false }
       ],
       loading: false,
       itemTotal: 0,
@@ -40,23 +40,18 @@ export default {
       this.getBoard()
   },
   methods: {
-    id2date (val) {
-      if (!val) return '잘못된 시간 정보'
-      return new Date(parseInt(val.substring(0, 8), 16) * 1000).toLocaleString()
-    },
     getBoard () {
         if (this.loading) return
-        console.log("진입")
         this.loading = true
-        axios.get(`/board`).then(({ data }) => {
-            if (!data.success) throw new Error(data.msg)
-            this.posts = data.posts
-            this.loading = false
-            })
-            .catch((e) => {
-            if (!e.response) this.$store.commit('pop', { msg: e.message, color: 'warning' })
-            this.loading = false
-            })
+        axios.get(`/board/list`).then(({ data }) => {
+          console.log(data);
+          if (!data.success) throw new Error(data.message)
+          this.posts = data.posts
+          this.loading = false
+        }).catch((e) => {
+          if (!e.response) this.$store.commit('pop', { msg: e.message, color: 'warning' })
+          this.loading = false
+        })
     },
   }
 }
@@ -82,6 +77,10 @@ background-color: rgb(250 ,250, 250);
 
 .theme--light.v-data-table thead tr th {
     color: white;
+}
+
+.text-start {
+  text-align: center;
 }
 
 </style>
