@@ -6,11 +6,7 @@
           :headers="headers"
           :items="posts"
           :loading="loading"
-          :total-items="itemTotal"
-          :pagination.sync="pagination"
-          rows-per-page-text=""
           class="text-no-wrap"
-          disable-initial-sort          
           >
           <template slot="items" slot-scope="props">
             <td :class="headers[0].class">{{ id2date(props.item._id)}}</td>
@@ -23,6 +19,7 @@
   </v-container>
 </template>
 <script>
+import axios from 'axios'
 
 export default {
   data () {
@@ -49,11 +46,10 @@ export default {
     },
     getBoard () {
         if (this.loading) return
-
+        console.log("진입")
         this.loading = true
-        this.$axios.get(`/board`).then(({ data }) => {
+        axios.get(`/board`).then(({ data }) => {
             if (!data.success) throw new Error(data.msg)
-            //this.pagination.totalItems = data.t
             this.posts = data.posts
             this.loading = false
             })
