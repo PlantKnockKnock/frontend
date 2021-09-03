@@ -31,7 +31,7 @@
          <span class="tooltip">Home</span>
       </li>
       <li>
-       <router-link to="Chart">
+       <router-link to="/chart">
          <i class='bx bx-user' ></i>
          <span class="links_name">User</span>
         </router-link>

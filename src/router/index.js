@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Login from '../views/Login'
 import HelloWorld from '@/components/HelloWorld'
 import Chart from '@/components/Chart'
 import loginpage from '../views/test.vue'
@@ -12,7 +12,7 @@ const routes = [
   {
     path: '/login',
     name: 'Home',
-    component: Home
+    component: Login
   },
   {
     path: '/about',

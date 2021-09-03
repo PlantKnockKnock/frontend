@@ -125,13 +125,13 @@
                 <v-list-item>
                   <v-list-item-title class="purple--text text--darken-1">화분 상태</v-list-item-title>
                   <v-item-content>
-                        <v-btn class="mr-1" outlined color="purple darken-1">온,습도</v-btn>
+                        <v-btn class="mr-1" @click="chart1btn" outlined color="purple darken-1">온,습도</v-btn>
                   </v-item-content>
                    <v-item-content>
-                        <v-btn class="mr-1" outlined color="purple darken-1">조도</v-btn>
+                        <v-btn class="mr-1" @click="chart2btn" outlined color="purple darken-1">토양수분</v-btn>
                   </v-item-content>
                    <v-item-content>
-                        <v-btn class="mr-1" outlined color="purple darken-1">토양수분</v-btn>
+                        <v-btn class="mr-1" @click="chart3btn" outlined color="purple darken-1">조도</v-btn>
                   </v-item-content>
                 </v-list-item>
               </v-list>
@@ -139,19 +139,7 @@
             <v-flex class="mt-5">
             </v-flex>
             <v-flex class="mt-5">
-                <v-sparkline
-                  :value="value"
-                  :gradient="gradient"
-                  :smooth="radius || false"
-                  :padding="padding"
-                  :line-width="width"
-                  :stroke-linecap="lineCap"
-                  :gradient-direction="gradientDirection"
-                  :fill="fill"
-                  :type="type"
-                  :auto-line-width="autoLineWidth"
-                  auto-draw
-                ></v-sparkline>
+              <apexchart ref= "chart" type="area" height="350" :options="chartOptions" :series="series"></apexchart>
             </v-flex>
           </v-container>
         </v-app>
@@ -159,6 +147,7 @@
     </v-layout>
   </v-app>
 </template>
+
 <script>
 const gradients = [
     ['#222'],
@@ -168,6 +157,34 @@ const gradients = [
     ['#00c6ff', '#F0F', '#FF0'],
     ['#f72047', '#ffd200', '#1feaea'],
   ]
+
+import VueApexcharts from 'vue-apexcharts'
+let lastDate = 0;
+let data = []
+let humidityData = []
+let moistureData = []
+let lightData = []
+let TICKINTERVAL = 86400000
+let XAXISRANGE = 777600000
+// 초기값 랜덤으로 대충 설정해주는용 
+function getDayWiseTimeSeries(baseval, count, yrange) {
+    var i = 0;
+    while (i < count) {
+        var x = baseval;
+        var y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+        data.push({
+        x, y
+        });
+        lastDate = baseval
+        baseval += TICKINTERVAL;
+        i++;
+    }
+}
+function resetData(){
+    // Alternatively, you can also reset the data at certain intervals to prevent creating a huge series 
+    data = data.slice(data.length - 2, data.length);
+}
+
 export default {
   data: () => ({
      width: 2,
@@ -181,8 +198,73 @@ export default {
       fill: false,
       type: 'trend',
       autoLineWidth: false,
-       arrayEvents: null,
+      arrayEvents: null,
       date2: new Date().toISOString().substr(0, 10),
+
+      series: [
+                {
+                    data: data.slice(),
+                },
+                {
+                    data : humidityData.slice()
+                },
+                {
+                    data : lightData.slice()
+                }
+             ],
+      chartOptions: {
+                chart: {
+                id: 'realtime',
+                height: 350,
+                type: 'line',
+                animations: {
+                    enabled: true,
+                    easing: 'linear',
+                    dynamicAnimation: {
+                    speed: 1000
+                    }
+                },
+                toolbar: {
+                    show: false
+                },
+                zoom: {
+                    enabled: false
+                }
+                },
+                dataLabels: {
+                enabled: false
+                },
+                stroke: {
+                curve: 'smooth'
+                },
+                title: {
+                text: '온도 및 습도',
+                align: 'left'
+                },
+                markers: {
+                size: 0
+                },
+                xaxis: {
+                type: 'datetime',
+                range: XAXISRANGE,
+                labels : {
+                    formatter: function (value, timestamp) {
+                        return new Date().toLocaleTimeString()
+                    }
+                }
+                },
+                yaxis: {
+                max: 100,
+                fillColor : '#FEB019',
+                borderColor: '#000',
+                label: {
+                        text: 'HIGH'
+                        }
+                },
+                legend: {
+                show: false
+                },
+          },
   }),
   computed: {
     theme() {
@@ -196,6 +278,61 @@ export default {
         d.setDate(day)
         return d.toISOString().substr(0, 10)
       })
+      console.log("마운트 진입");
+      var me = this
+      let channel = this.$pusher.subscribe('my-channel')
+      console.log(channel)
+      channel.bind('my-event',function(data_t){
+          let t = data_t.temperature
+          let h = data_t.humidity
+          let newDate = lastDate + TICKINTERVAL
+          lastDate = newDate
+          /*
+          for(var i = 0; i< data.length - 10; i++) {
+              data[i].x = newDate - XAXISRANGE - TICKINTERVAL
+              data[i].y = 0
+          }*/
+          data.push({
+              x: newDate,
+              y: t
+          })
+          humidityData.push({
+              x : newDate,
+              y : h
+          })
+          console.log(data_t)
+          me.$refs.chart.updateSeries([{
+              data: data,
+          },
+          {
+              data : humidityData,
+          }
+          ])
+      })
+      channel.bind('moisture',function(data){
+          let moisture = data.moisture
+          let newDate = lastDate + TICKINTERVAL
+          lastDate = newDate
+          moistureData.push({
+              x: newDate,
+              y: moisture
+          })
+          me.$refs.chart2.updateSeries([{
+              data: moistureData
+          }])
+      })
+      channel.bind('light',function(data){
+          let light = data.light
+          let newDate = lastDate + TICKINTERVAL
+          lastDate = newDate
+          lightData.push({
+              x: newDate,
+              y: light
+          })
+          me.$refs.chart3.updateSeries([{
+              data: lightData
+          }])
+      })
     },
     methods: {
       functionEvents (date) {
@@ -204,9 +341,177 @@ export default {
         if ([1, 19, 22].includes(parseInt(day, 10))) return ['red', '#00f']
         return false
       },
+
+      chart1btn() {
+        this.chartOptions = {
+                chart: {
+                id: 'realtime',
+                height: 350,
+                type: 'line',
+                animations: {
+                    enabled: true,
+                    easing: 'linear',
+                    dynamicAnimation: {
+                    speed: 1000
+                    }
+                },
+                toolbar: {
+                    show: false
+                },
+                zoom: {
+                    enabled: false
+                }
+                },
+                dataLabels: {
+                enabled: false
+                },
+                stroke: {
+                curve: 'smooth'
+                },
+                title: {
+                text: '온도 및 습도',
+                align: 'left'
+                },
+                markers: {
+                size: 0
+                },
+                xaxis: {
+                type: 'datetime',
+                range: XAXISRANGE,
+                labels : {
+                    formatter: function (value, timestamp) {
+                        return new Date().toLocaleTimeString()
+                    }
+                }
+                },
+                yaxis: {
+                max: 100,
+                fillColor : '#FEB019',
+                borderColor: '#000',
+                label: {
+                        text: 'HIGH'
+                        }
+                },
+                legend: {
+                show: false
+                },
+          };
+      },
+      chart2btn() {
+        this.chartOptions = {
+                chart: {
+                id: 'realtime',
+                height: 350,
+                type: 'line',
+                animations: {
+                    enabled: true,
+                    easing: 'linear',
+                    dynamicAnimation: {
+                    speed: 1000
+                    }
+                },
+                toolbar: {
+                    show: false
+                },
+                zoom: {
+                    enabled: false
+                }
+                },
+                dataLabels: {
+                enabled: false
+                },
+                stroke: {
+                curve: 'smooth'
+                },
+                title: {
+                text: '수분',
+                align: 'left'
+                },
+                markers: {
+                size: 0
+                },
+                xaxis: {
+                type: 'datetime',
+                range: XAXISRANGE,
+                labels : {
+                    formatter: function (value, timestamp) {
+                        return new Date().toLocaleTimeString()
+                    }
+                }
+                },
+                yaxis: {
+                max: 1023,
+                fillColor : '#E91E63',
+                borderColor: '#000',
+                label: {
+                        text: 'HIGH'
+                        }
+                },
+                legend: {
+                show: false
+                },
+          }
+      },
+      chart3btn() {
+        this.chartOptions = {
+                chart: {
+                id: 'realtime',
+                height: 350,
+                type: 'line',
+                animations: {
+                    enabled: true,
+                    easing: 'linear',
+                    dynamicAnimation: {
+                    speed: 1000
+                    }
+                },
+                toolbar: {
+                    show: false
+                },
+                zoom: {
+                    enabled: false
+                }
+                },
+                dataLabels: {
+                enabled: false
+                },
+                stroke: {
+                curve: 'smooth'
+                },
+                title: {
+                text: '조도',
+                align: 'left'
+                },
+                markers: {
+                size: 0
+                },
+                xaxis: {
+                type: 'datetime',
+                range: XAXISRANGE,
+                labels : {
+                    formatter: function (value, timestamp) {
+                        return new Date().toLocaleTimeString()
+                    }
+                }
+                },
+                yaxis: {
+                max : 1200,
+                fillColor : '#E91E63',
+                borderColor: '#000',
+                label: {
+                        text: 'HIGH'
+                        }
+                },
+                legend: {
+                show: false
+                },
+          };
+      }
     },
 };
 </script>
+
+
 <style scoped>
 .rounded {
   border-top-left-radius: 50px;
