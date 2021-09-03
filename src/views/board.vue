@@ -26,7 +26,7 @@ export default {
     return {
       posts: [],
       headers: [
-        { text: '글번호', value: 'c_id', sortable: true, class: 'hidden-sm-and-down' },
+        { text: '글번호', value: 'c_id', sortable: true, class: 'hidden-sm-and-down'},
         { text: '제목', value: 'title', sortable: true },
         { text: '글쓴이', value: 'c_nickname', sortable: false }
       ],
@@ -58,15 +58,6 @@ export default {
 </script>
 
 <style>
-
-tbody tr:nth-of-type(even) {
-background-color: rgba(236, 237, 237);
-}
-
-tbody tr:nth-of-type(odd) {
-background-color: rgb(250 ,250, 250);
-}
-
 .v-data-table-header {
     background-color: white;
 }

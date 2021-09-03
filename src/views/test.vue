@@ -35,15 +35,15 @@
               <br>
             </v-flex>
             <v-flex class="ml-8">
-                  <v-row >
-                    <div>
-                      <v-date-picker
-                        v-model="date2"
-                        :event-color="date => date[9] % 2 ? 'red' : 'yellow'"
-                        :events="functionEvents"
-                      ></v-date-picker>
-                    </div>
-                  </v-row>
+              <v-row >
+                <div>
+                  <v-date-picker
+                    v-model="date2"
+                    :event-color="date => date[9] % 2 ? 'red' : 'yellow'"
+                    :events="functionEvents">
+                  </v-date-picker>
+                </div>
+              </v-row>
             </v-flex>
           </v-container>
         </v-app>
@@ -156,7 +156,7 @@ const gradients = [
     ['purple', 'violet'],
     ['#00c6ff', '#F0F', '#FF0'],
     ['#f72047', '#ffd200', '#1feaea'],
-  ]
+]
 
 import VueApexcharts from 'vue-apexcharts'
 let lastDate = 0;
@@ -187,7 +187,7 @@ function resetData(){
 
 export default {
   data: () => ({
-     width: 2,
+      width: 2,
       radius: 10,
       padding: 8,
       lineCap: 'round',
@@ -198,8 +198,10 @@ export default {
       fill: false,
       type: 'trend',
       autoLineWidth: false,
+
       arrayEvents: null,
       date2: new Date().toISOString().substr(0, 10),
+      
 
       series: [
                 {
@@ -278,6 +280,7 @@ export default {
         d.setDate(day)
         return d.toISOString().substr(0, 10)
       })
+
       console.log("마운트 진입");
       var me = this
       let channel = this.$pusher.subscribe('my-channel')
@@ -337,9 +340,6 @@ export default {
     methods: {
       functionEvents (date) {
         const [,, day] = date.split('-')
-        if ([12, 17, 28].includes(parseInt(day, 10))) return true
-        if ([1, 19, 22].includes(parseInt(day, 10))) return ['red', '#00f']
-        return false
       },
 
       chart1btn() {
