@@ -1,43 +1,32 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../views/Login'
-import HelloWorld from '@/components/HelloWorld'
-import Chart from '@/components/Chart'
-import loginpage from '../views/test.vue'
-import Board from '../views/board'
+import Mypage from '../views/MyPage'
+import Index from '@/Main/Index'
+import Sign from '../views/Sign'
+import Community from '../views/Community'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/login',
-    name: 'Home',
-    component: Login
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  {
     path: '/',
-    name: 'HelloWorld',
-    component: HelloWorld
+    name: 'Index',
+    component: Index
   },
   {
-    path: '/chart',
-    name: 'Chart',
-    component: Chart
+    path: '/MyPage',
+    name: 'MyPage',
+    component: Mypage
   },
   {
-    path: '/loginpage',
-    name: 'loginpage',
-    component: loginpage
+    path: '/Community',
+    name: 'Community',
+    component: Community
   },
   {
-    path: '/board',
-    name: 'board',
-    component: Board
+    path: '/Sign',
+    name: 'Sign',
+    component: Sign
   }
 ]
 

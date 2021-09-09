@@ -31,46 +31,25 @@
          <span class="tooltip">Home</span>
       </li>
       <li>
-       <router-link to="/chart">
+       <router-link to="/Mypage">
          <i class='bx bx-user' ></i>
-         <span class="links_name">User</span>
-        </router-link>
-       <span class="tooltip">User</span>
+         <span class="links_name">MyPage</span>
+       </router-link>
+       <span class="tooltip">MyPage</span>
      </li>
-     <li>
-       <router-link to="/board">
+        <li>
+       <router-link to="/Community">
          <i class='bx bx-note' ></i>
          <span class="links_name">Community</span>
        </router-link>
        <span class="tooltip">Commnuity</span>
      </li>
-      <li>
-       <router-link to="/">
-         <i class='bx bx-chat' ></i>
-         <span class="links_name">Messages</span>
-       </router-link>
-       <span class="tooltip">Messages</span>
-     </li>
-     <li>
-       <router-link to="/">
-         <i class='bx bx-cog' ></i>
-         <span class="links_name">Setting</span>
-       </router-link>
-       <span class="tooltip">Setting</span>
-     </li>
-      <li>
-       <router-link to="/login">
-         <i class='bx bx-cog' ></i>
-         <span class="links_name">Sign in(임시)</span>
+        <li>
+       <router-link to="/Sign">
+         <i class='bx bx-log-in' ></i>
+         <span class="links_name">Sign in   Sign up</span>
        </router-link>
        <span class="tooltip">Sign in</span>
-     </li>
-      <li>
-       <router-link to="/loginpage">
-         <i class='bx bx-cog' ></i>
-         <span class="links_name">LoginPage</span>
-       </router-link>
-       <span class="tooltip">Login Page</span>
      </li>
      <!--로그인과 로그아웃 임시용-->
      <li class="profile">

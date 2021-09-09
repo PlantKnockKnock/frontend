@@ -18,7 +18,7 @@
                   </v-list-item>
                   <v-list-item class="mt-n5">
                     <v-list-item-subtitle>null</v-list-item-subtitle>
-                    <v-list-item-subtitle>null</v-list-item-subtitle>
+                    <v-list-item-subtitle>수분 부족</v-list-item-subtitle>
                     <v-list-item-subtitle>null</v-list-item-subtitle>
                   </v-list-item>
                 </v-list>
@@ -28,7 +28,7 @@
               <v-list color="transparent" class="text-center">
                 <v-list-item>
                   <v-list-item-title class="purple--text text--darken-1">Notifications</v-list-item-title>
-                  <v-list-item-subtitle>15 Oct 2021</v-list-item-subtitle>
+                  <v-list-item-subtitle>05 Oct 2021</v-list-item-subtitle>
                 </v-list-item>
               </v-list>
               <br>
