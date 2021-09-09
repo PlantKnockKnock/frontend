@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login'
-import HelloWorld from '@/components/HelloWorld'
+import Index from '@/components/index'
 import Chart from '@/components/Chart'
 import loginpage from '../views/test.vue'
 import Board from '../views/board'
@@ -21,8 +21,8 @@ const routes = [
   },
   {
     path: '/',
-    name: 'HelloWorld',
-    component: HelloWorld
+    name: 'index',
+    component: Index
   },
   {
     path: '/chart',

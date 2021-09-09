@@ -20,6 +20,6 @@ export default {
 <style>
 body {
   background-color:#222;
-  padding-left : 100px;
+  padding-left : 4.8rem;
 }
 </style>
