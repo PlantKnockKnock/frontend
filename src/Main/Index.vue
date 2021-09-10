@@ -31,7 +31,7 @@ export default {
 .introContainer {
   display: flex;
   flex-direction: column;
-  height: 65rem;
+  height : 100vh;
   justify-content: center;
   align-items: center;
 
