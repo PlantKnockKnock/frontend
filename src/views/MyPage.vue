@@ -25,12 +25,16 @@
               </v-card>
             </v-flex>
             <v-flex>
+              <v-card class="ma-5 text-center mt-12" shaped elevation="10">
               <v-list color="transparent" class="text-center">
+                <v-list-item-title>Sonic Bloom 재생 </v-list-item-title>
                 <v-list-item>
-                  <v-list-item-title class="purple--text text--darken-1">Notifications</v-list-item-title>
-                  <v-list-item-subtitle>05 Oct 2021</v-list-item-subtitle>
+                  <v-list-item-title class='bx bx-play' ></v-list-item-title>
+                  <v-list-item-title class='bx bx-pause' ></v-list-item-title>
+                  <v-list-item-title class='bx bx-stop' ></v-list-item-title>
                 </v-list-item>
               </v-list>
+              </v-card>
               <br>
               <br>
             </v-flex>
@@ -52,6 +56,8 @@
         <v-app :style="{background: $vuetify.theme.themes.dark.background}" class="rounded">
           <v-container>
             <v-flex>
+              <br>
+              <br>
               <v-list class="mt-5">
                 <v-list-item>
                   <v-list-item-title class="purple--text text--darken-1">상태요약</v-list-item-title>
