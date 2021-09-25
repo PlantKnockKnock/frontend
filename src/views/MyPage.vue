@@ -201,7 +201,7 @@ export default {
       value: [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0],
       gradientDirection: 'top',
       gradients,
-      fill: false,
+      fill: true,
       type: 'trend',
       autoLineWidth: false,
 
@@ -240,7 +240,7 @@ export default {
                 }
                 },
                 dataLabels: {
-                enabled: false
+                enabled: true
                 },
                 stroke: {
                 curve: 'smooth'
@@ -287,68 +287,45 @@ export default {
         return d.toISOString().substr(0, 10)
       })
 
-      console.log("마운트 진입");
-      var me = this
-      let channel = this.$pusher.subscribe('my-channel')
-      console.log(channel)
-      channel.bind('my-event',function(data_t){
-          let t = data_t.temperature
-          let h = data_t.humidity
-          let newDate = lastDate + TICKINTERVAL
-          lastDate = newDate
-          /*
-          for(var i = 0; i< data.length - 10; i++) {
-              data[i].x = newDate - XAXISRANGE - TICKINTERVAL
-              data[i].y = 0
-          }*/
-          data.push({
-              x: newDate,
-              y: t
-          })
-          humidityData.push({
-              x : newDate,
-              y : h
-          })
-          console.log(data_t)
-          me.$refs.chart.updateSeries([{
-              data: data,
-          },
-          {
-              data : humidityData,
-          }
-          ])
-      })
-      channel.bind('moisture',function(data){
-          let moisture = data.moisture
-          let newDate = lastDate + TICKINTERVAL
-          lastDate = newDate
-          moistureData.push({
-              x: newDate,
-              y: moisture
-          })
-          me.$refs.chart2.updateSeries([{
-              data: moistureData
-          }])
-      })
-      channel.bind('light',function(data){
-          let light = data.light
-          let newDate = lastDate + TICKINTERVAL
-          lastDate = newDate
-          lightData.push({
-              x: newDate,
-              y: light
-          })
-          me.$refs.chart3.updateSeries([{
-              data: lightData
-          }])
-      })
+      this.chart1btn();
     },
     methods: {
       functionEvents (date) {
         const [,, day] = date.split('-')
       },
 
-      chart1btn() {
+      chart1btn() {  
+        var me = this
+        let channel = this.$pusher.subscribe('my-channel')
+        channel.bind('my-event',function(data_t){
+            let t = data_t.temperature
+            let h = data_t.humidity
+            let newDate = lastDate + TICKINTERVAL
+            lastDate = newDate
+            /*
+            for(var i = 0; i< data.length - 10; i++) {
+                data[i].x = newDate - XAXISRANGE - TICKINTERVAL
+                data[i].y = 0
+            }*/
+            data.push({
+                x: newDate,
+                y: t
+            })
+            humidityData.push({
+                x : newDate,
+                y : h
+            })
+            console.log(data_t)
+            me.$refs.chart.updateSeries([{
+                data: data,
+            },
+            {
+                data : humidityData,
+            }
+            ])
+        })
+        channel.unbind('light');
+        channel.unbind('moisture');
         this.chartOptions = {
                 chart: {
                 id: 'realtime',
@@ -369,7 +346,7 @@ export default {
                 }
                 },
                 dataLabels: {
-                enabled: false
+                enabled: true
                 },
                 stroke: {
                 curve: 'smooth'
@@ -404,6 +381,26 @@ export default {
           };
       },
       chart2btn() {
+        var me = this
+        let channel = this.$pusher.subscribe('my-channel')
+        channel.bind('moisture',function(data){
+          let moisture = data.moisture
+          let newDate = lastDate + TICKINTERVAL
+          lastDate = newDate
+          moistureData.push({
+              x: newDate,
+              y: moisture
+          })
+
+          console.log("moisture : " + moisture)
+
+          me.$refs.chart.updateSeries([{
+              data: moistureData
+          }])
+        })
+        channel.unbind('light');
+        channel.unbind('my-event');
+
         this.chartOptions = {
                 chart: {
                 id: 'realtime',
@@ -424,7 +421,7 @@ export default {
                 }
                 },
                 dataLabels: {
-                enabled: false
+                enabled: true
                 },
                 stroke: {
                 curve: 'smooth'
@@ -459,6 +456,26 @@ export default {
           }
       },
       chart3btn() {
+        var me = this
+        let channel = this.$pusher.subscribe('my-channel')
+        channel.bind('light',function(data){
+          let light = data.light
+          let newDate = lastDate + TICKINTERVAL
+          lastDate = newDate
+          lightData.push({
+              x: newDate,
+              y: light
+          })
+
+          console.log("light : " + light)
+
+          me.$refs.chart.updateSeries([{
+              data: lightData
+          }])
+        })
+        channel.unbind('moisture');
+        channel.unbind('my-event');
+
         this.chartOptions = {
                 chart: {
                 id: 'realtime',
@@ -479,7 +496,7 @@ export default {
                 }
                 },
                 dataLabels: {
-                enabled: false
+                enabled: true
                 },
                 stroke: {
                 curve: 'smooth'
