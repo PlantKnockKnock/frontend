@@ -12,8 +12,7 @@
                       <v-card-text class="mt-12">
                         <h1
                           class="text-center display-2 purple--text text--darken-4"
-                        >Sign in to SPMS</h1>
-                        <h4 class="text-center mt-4">Ensure your email for registration</h4>
+                        >로그인</h1>
                         <v-form @submit.prevent="signIn" id="Login">
                           <v-text-field
                             v-model="emailin"
@@ -31,7 +30,6 @@
                             color="purple darken-4"
                           />
                         </v-form>
-                        <h3 class="text-center mt-4">Forgot your password ?</h3>
                       </v-card-text>
                       <div class="text-center mt-3">
                         <v-btn rounded color="purple darken-4" dark type="submit" form="Login">SIGN IN</v-btn>
@@ -42,11 +40,14 @@
                     </v-col>
                     <v-col cols="12" md="4" class="purple darken-4">
                       <v-card-text class="white--text mt-12">
-                        <h1 class="text-center display-1">Hello, Friend!</h1>
+                        <h1 class="text-center display-1">회원가입</h1>
+                        <br>
                         <h5
                           class="text-center"
-                        >Enter your personal details and start journay with us</h5>
+                        >SPMS의 회원이 되어주세요</h5>
                       </v-card-text>
+                      <br>
+
                       <div class="text-center">
                         <v-btn rounded outlined dark @click="step++">SIGN UP</v-btn>
                       </div>
@@ -57,10 +58,15 @@
                   <v-row class="fill height">
                     <v-col cols="12" md="4" class="purple darken-4">
                       <v-card-text class="white--text mt-12">
-                        <h1 class="text-center display-1">Welcome Back!</h1>
+                        <h1 class="text-center display-1">로그인</h1>
+                        <br>
+                        <br>
                         <h5
                           class="text-center"
-                        >To Keep connected with us please login with your personnel info</h5>
+                        >SPMS에 로그인을 해주세요 !</h5>
+                        <br>
+                        <br>
+                        <br>
                       </v-card-text>
                       <div class="text-center">
                         <v-btn rounded outlined dark>Sign in</v-btn>
@@ -72,8 +78,7 @@
 
                     <v-col cols="12" md="8">
                       <v-card-text class="mt-12">
-                        <h1 class="text-center display-2 purple--text text--darken-4">Create Account</h1>
-                        <h4 class="text-center mt-4">Ensure your email for registration</h4>
+                        <h1 class="text-center display-2 purple--text text--darken-4">회원가입</h1>
                         <v-form @submit.prevent="signUp" id="register">
                           <v-text-field
                             v-model ="nickname"

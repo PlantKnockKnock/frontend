@@ -31,34 +31,33 @@
          <span class="tooltip">Home</span>
       </li>
       <li>
+       <router-link to="/Sign">
+         <i class='bx bx-log-in' ></i>
+         <span class="links_name">Sign</span>
+       </router-link>
+       <span class="tooltip">Sign</span>
+     </li>
+      <li>
        <router-link to="/Mypage">
          <i class='bx bx-user' ></i>
          <span class="links_name">MyPage</span>
        </router-link>
        <span class="tooltip">MyPage</span>
      </li>
-        <li>
+    <li>
+       <router-link to="/Diary">
+         <i class='bx bx-book-bookmark' ></i>
+         <span class="links_name">Diary</span>
+       </router-link>
+       <span class="tooltip">Diary</span>
+     </li>
+    <li>
        <router-link to="/Community">
          <i class='bx bx-note' ></i>
          <span class="links_name">Community</span>
        </router-link>
        <span class="tooltip">Commnuity</span>
      </li>
-        <li>
-       <router-link to="/Diary">
-         <i class='bx book-bookmark' ></i>
-         <span class="links_name">Diary</span>
-       </router-link>
-       <span class="tooltip">Diary</span>
-     </li>
-        <li>
-       <router-link to="/Sign">
-         <i class='bx bx-log-in' ></i>
-         <span class="links_name">Sign in   Sign up</span>
-       </router-link>
-       <span class="tooltip">Sign in</span>
-     </li>
-     <!--로그인과 로그아웃 임시용-->
      <li class="profile">
          <div class="profile-details">
            <i class='bx bx-user-circle' ></i>
