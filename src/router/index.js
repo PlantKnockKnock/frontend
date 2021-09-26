@@ -4,6 +4,7 @@ import Mypage from '../views/MyPage'
 import Index from '@/Main/Index'
 import Sign from '../views/Sign'
 import Community from '../views/Community'
+import Diary from '../views/Diary'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/Sign',
     name: 'Sign',
     component: Sign
+  },
+  {
+    path : '/Diary',
+    name : 'Diary',
+    component : Diary
   }
 ]
 

@@ -45,6 +45,13 @@
        <span class="tooltip">Commnuity</span>
      </li>
         <li>
+       <router-link to="/Diary">
+         <i class='bx book-bookmark' ></i>
+         <span class="links_name">Diary</span>
+       </router-link>
+       <span class="tooltip">Diary</span>
+     </li>
+        <li>
        <router-link to="/Sign">
          <i class='bx bx-log-in' ></i>
          <span class="links_name">Sign in   Sign up</span>
